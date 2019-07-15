@@ -1,0 +1,69 @@
+﻿@model FillingStationApp.Models.DataEntry
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <div class="col text-center mt-3">
+        <h1>
+            Data Entry
+        </h1>
+    </div>
+</div>
+
+<div class="row justify-content-md-center">
+    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-9 col-xs-12">
+        @using (Html.BeginForm("Create", "DataEntries", FormMethod.Post, new { @class = "rounded", style = "border:1px solid blue;padding:25px;" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Type)
+
+                @Html.DropDownListFor(model => model.Type,ViewBag.EntryTypeList as SelectList,new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.MachineNumber)
+
+                @Html.DropDownListFor(model => model.MachineNumber,ViewBag.MachineList as SelectList, new  { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.MachineNumber, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CurrentReading)
+                @Html.EditorFor(model => model.CurrentReading, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CurrentReading, "", new { @class = "text-danger" })
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CashRecieved)
+
+                @Html.EditorFor(model => model.CashRecieved, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CashRecieved, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+
+                <input type="submit" value="Create" class="btn btn-default" />
+
+            </div>
+
+        }
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
