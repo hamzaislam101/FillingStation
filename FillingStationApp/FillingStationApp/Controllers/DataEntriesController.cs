@@ -6,6 +6,7 @@ using System.Linq;
 using System.Net;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.Script.Serialization;
 using FillingStationApp.Helper;
 using FillingStationApp.Models;
 
@@ -45,17 +46,30 @@ namespace FillingStationApp.Controllers
             {
                 items.Add(new SelectListItem { Text = type, Value = type});
             }
+            items.Add(new SelectListItem { Text = "haha", Value = "Petrol" });
             if (types.Count > 0)
+            {
                 ViewBag.EntryTypeList = new SelectList(items, "Value", "Text", types[0]);
+            }
             else
                 ViewBag.EntryTypeList = new SelectList(items, "Value", "Text");
 
+            var machines = new List<Machine>();
 
-            var machines = db.Machines.Select(x => x.MachineNumber).Distinct().ToList();
+            if (types.Count > 0)
+            {
+                var type = types[0];
+                machines = db.Machines.Where(x => x.Type == type).ToList();
+            }
+            else
+            {
+                machines = db.Machines.Distinct().ToList();
+            }
+            
             List<SelectListItem> mac = new List<SelectListItem>();
             foreach(var machine in machines)
             {
-                mac.Add(new SelectListItem { Text = machine, Value = machine });
+                mac.Add(new SelectListItem { Text = machine.MachineNumber, Value = machine.MachineNumber });
             }
             if(machines.Count > 0)
             ViewBag.MachineList = new SelectList(mac,"Value","Text",machines[0]);
@@ -92,11 +106,20 @@ namespace FillingStationApp.Controllers
                 ViewBag.EntryTypeList = new SelectList(items, "Value", "Text");
 
 
-            var machines = db.Machines.Select(x => x.MachineNumber).Distinct().ToList();
+            var machines = new List<Machine>();
+
+            if (types.Count > 0)
+            {
+                machines = db.Machines.Where(x => x.Type == types[0]).ToList();
+            }
+            else
+            {
+                machines = db.Machines.Distinct().ToList();
+            }
             List<SelectListItem> mac = new List<SelectListItem>();
             foreach (var machine in machines)
             {
-                mac.Add(new SelectListItem { Text = machine, Value = machine });
+                mac.Add(new SelectListItem { Text = machine.MachineNumber, Value = machine.MachineNumber });
             }
             if (machines.Count>0)
                 ViewBag.MachineList = new SelectList(mac, "Value", "Text", machines[0]);
@@ -170,6 +193,17 @@ namespace FillingStationApp.Controllers
             db.DataEntries.Remove(dataEntry);
             db.SaveChanges();
             return RedirectToAction("Index");
+        }
+
+        public ActionResult GetMachines(string type)
+        {
+            var data = Request.Params["type"].ToString();
+            List<Machine> machines = new List<Machine>();
+            machines = db.Machines.Where(x => x.Type == type).ToList();
+
+            JavaScriptSerializer js = new JavaScriptSerializer();
+            string result = js.Serialize(machines);
+            return Json(result,JsonRequestBehavior.AllowGet);
         }
 
         protected override void Dispose(bool disposing)

@@ -23,6 +23,16 @@ namespace FillingStationApp.Controllers
             return View(db.Users.ToList());
         }
 
+        public ActionResult Logout()
+        {
+            if(Session["LoggedIn"] != null)
+            {
+                Session["LoggedIn"] = null;
+            }
+            
+            return RedirectToAction("Login");
+        }
+
         public ActionResult Login()
         {
             ViewBag.ErrorMessage = "";

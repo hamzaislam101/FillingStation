@@ -3,7 +3,11 @@
 @{
     ViewBag.Title = "Login";
 }
-
+<div class="row">
+    <div class="col text-center mt-3">
+        Login
+    </div>
+</div>
 <div class="row justify-content-md-center">
     <div class="col-md-8 col-xl-6 col-lg-7 col-sm-11 col-xs-12 p-5">
         @using (Html.BeginForm("Login", "Users", FormMethod.Post, new { @class = "rounded veryextralarge verylarge justmedium verysmall veryverysmall" }))

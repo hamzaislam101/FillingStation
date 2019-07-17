@@ -41,6 +41,18 @@ namespace FillingStationApp.Controllers
 
         public ActionResult Create()
         {
+
+            List<SelectListItem> companies = new List<SelectListItem>();
+            var types = db.Companies.Select(x => x.CompanyName).Distinct().ToList();
+            foreach (var type in types)
+            {
+                companies.Add(new SelectListItem { Text = type, Value = type });
+            }
+            if (types.Count > 0)
+                ViewBag.CompanyList = new SelectList(companies, "Value", "Text", types[0]);
+            else
+                ViewBag.CompanyList = new SelectList(companies, "Value", "Text");
+
             return View();
         }
 
@@ -51,7 +63,7 @@ namespace FillingStationApp.Controllers
         [ValidateAntiForgeryToken]
         [RoleAuthorize("Admin")]
 
-        public ActionResult Create([Bind(Include = "Id,Company,Type,Quantity,DealingPerson,CNIC,PhoneNo,Address")] Stock stock)
+        public ActionResult Create([Bind(Include = "Company,Type,Quantity,DealingPerson,CNIC,PhoneNo,Address")] Stock stock)
         {
             if (ModelState.IsValid)
             {
@@ -61,7 +73,16 @@ namespace FillingStationApp.Controllers
                 db.SaveChanges();
                 return RedirectToAction("Index");
             }
-
+            List<SelectListItem> companies = new List<SelectListItem>();
+            var types = db.Companies.Select(x => x.CompanyName).Distinct().ToList();
+            foreach (var type in types)
+            {
+                companies.Add(new SelectListItem { Text = type, Value = type });
+            }
+            if (types.Count > 0)
+                ViewBag.CompanyList = new SelectList(companies, "Value", "Text", types[0]);
+            else
+                ViewBag.CompanyList = new SelectList(companies, "Value", "Text");
             return View(stock);
         }
 

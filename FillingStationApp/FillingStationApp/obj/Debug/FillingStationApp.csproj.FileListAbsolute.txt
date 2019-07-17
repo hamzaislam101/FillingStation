@@ -60,3 +60,4 @@ C:\Users\HamzaIslam\source\repos\FillingStationApp\FillingStationApp\obj\Debug\F
 C:\Users\HamzaIslam\source\repos\FillingStationApp\FillingStationApp\obj\Debug\FillingStationApp.pdb
 C:\Users\HamzaIslam\source\repos\FillingStationApp\FillingStationApp\obj\Debug\FillingStationApp.Migrations.initial.resources
 C:\Users\HamzaIslam\source\repos\FillingStationApp\FillingStationApp\obj\Debug\FillingStationApp.csproj.GenerateResource.cache
+C:\Users\HamzaIslam\source\repos\FillingStationApp\FillingStationApp\obj\Debug\FillingStationApp.Migrations.second.resources
