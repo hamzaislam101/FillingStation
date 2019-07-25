@@ -46,7 +46,6 @@ namespace FillingStationApp.Controllers
             {
                 items.Add(new SelectListItem { Text = type, Value = type});
             }
-            items.Add(new SelectListItem { Text = "haha", Value = "Petrol" });
             if (types.Count > 0)
             {
                 ViewBag.EntryTypeList = new SelectList(items, "Value", "Text", types[0]);
@@ -195,9 +194,9 @@ namespace FillingStationApp.Controllers
             return RedirectToAction("Index");
         }
 
+        [HttpPost]
         public ActionResult GetMachines(string type)
         {
-            var data = Request.Params["type"].ToString();
             List<Machine> machines = new List<Machine>();
             machines = db.Machines.Where(x => x.Type == type).ToList();
 

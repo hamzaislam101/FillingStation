@@ -4,7 +4,7 @@
     ViewBag.Title = "Index";
 }
 
-<h2>Index</h2>
+<h2>Data Entries</h2>
 
 <p>
     @Html.ActionLink("Create New", "Create")
@@ -60,4 +60,48 @@
     </tr>
 }
 
+</table>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">@Html.DisplayNameFor(model => model.Type)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.MachineNumber)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CurrentReading)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CashRecieved)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CreatedBy)</th>
+            <th scope="col">@Html.DisplayNameFor(model => model.CreatedOn)</th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.MachineNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CurrentReading)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CashRecieved)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Details", "Details", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
 </table>

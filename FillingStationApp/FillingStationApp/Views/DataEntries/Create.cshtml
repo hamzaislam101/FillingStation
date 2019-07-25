@@ -66,16 +66,15 @@
     function getMachineList() {
         debugger;  
         var type = $("#Type").val();
-        console.log("Type"+type);
+        console.log("Type" + type);
+        var d = 'type=' + type;
         $.ajax  
-        ({  
-            url: '/DataEntries/GetMachines',  
-            type: 'POST',  
-            datatype: 'application/json',  
-            contentType: 'application/json',  
-            data: JSON.stringify({
-                type: +type  
-            }),  
+            ({
+                url: '/DataEntries/GetMachines',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({ type: type }),
             success: function(result)  
           {  
                 $("#MachineNumber").html("");  
