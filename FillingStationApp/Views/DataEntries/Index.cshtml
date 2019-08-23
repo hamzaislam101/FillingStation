@@ -1,0 +1,63 @@
+﻿@model IEnumerable<FillingStationApp.Models.DataEntry>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Data Entries</h2>
+<a href="@Url.Action("Create")"><span><img style="max-width:50px;margin-bottom: 5px;" src="~/Content/plus.png" /></span></a>
+
+
+<div style="overflow-x:auto;">
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">@Html.DisplayNameFor(model => model.Type)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.MachineNumber)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CurrentReading)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CashRecieved)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CreatedBy)</th>
+                <th scope="col">@Html.DisplayNameFor(model => model.CreatedOn)</th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MachineNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CurrentReading)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CashRecieved)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                        @if (Session["UserType"].ToString() == "Admin")
+                        {
+                            <label>|</label>
+                            @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                        }
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+<script>
+    $(document).ready(function () {
+
+    });
+</script>

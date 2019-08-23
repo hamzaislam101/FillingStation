@@ -1,0 +1,30 @@
+﻿@{
+    ViewBag.Title = "Home Page";
+}
+
+
+<div class="row">
+    <div class="col text-center mt-3">
+        <h1>
+            Dash Board
+        </h1>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-9 col-xs-12">
+        <div class="rounded" style="border:1px solid red;padding:25px;">
+
+            @Html.ActionLink("Data Entry", "Index", "DataEntries", null, new { @class = "btn btn-danger btn-lg btn-block" })
+            @if (Session["UserType"].ToString() == "Admin")
+            {
+                @Html.ActionLink("Stock", "Index", "Stocks", null, new { @class = "btn btn-danger btn-lg btn-block" })
+                @Html.ActionLink("Last 30 Day Sales Report", "Last30DaySaleReport", "Home", null, new { @class = "btn btn-danger btn-lg btn-block" })
+                @*@Html.ActionLink("Reports", "Index", "Home", null, new { @class = "btn btn-danger btn-lg btn-block" })*@
+                @Html.ActionLink("Machine Management", "Index", "Machines", null, new { @class = "btn btn-danger btn-lg btn-block" })
+                @Html.ActionLink("User Management", "Index", "Users", null, new { @class = "btn btn-danger btn-lg btn-block" })
+            }
+
+
+        </div>
+    </div>
+</div>

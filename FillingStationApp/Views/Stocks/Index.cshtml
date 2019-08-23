@@ -1,0 +1,122 @@
+﻿@model IEnumerable<FillingStationApp.Models.Stock>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Stock</h2>
+
+<a href="@Url.Action("Create")"><span><img style="max-width:50px;margin-bottom: 5px;" src="~/Content/plus.png" /></span></a>
+
+
+<div style="overflow-x:auto; text-align:center;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">Type</th>
+                <th scope="col">Stock Available</th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var s in ViewBag.StockList)
+            {
+                <tr>
+                    <td>@s.Key</td>
+                    <td>@s.Value</td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<div style="overflow-x:auto;">
+    <table class="table">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Company)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Quantity)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.PurchasePricePL)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CarriageCharges)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.PriceAfterCarriage)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.DealingPerson)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CNIC)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.PhoneNo)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Company)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Type)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Quantity)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PurchasePricePL)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CarriageCharges)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PriceAfterCarriage)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.DealingPerson)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CNIC)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.PhoneNo)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Address)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedBy)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.CreatedOn)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                </td>
+            </tr>
+            }
+        </tbody>
+
+    </table>
+</div>

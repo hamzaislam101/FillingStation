@@ -1,0 +1,154 @@
+﻿@model FillingStationApp.Models.Stock
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<div class="row">
+    <div class="col text-center mt-3">
+        <h1>
+            Stock Management
+        </h1>
+    </div>
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-9 col-xs-12">
+        @using (Html.BeginForm("Create", "Stocks", FormMethod.Post, new { @class = "rounded", style = "border:1px solid blue;padding:25px;" }))
+        {
+            @Html.AntiForgeryToken()
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.Company)
+
+                @Html.DropDownListFor(model => model.Company, ViewBag.CompanyList as SelectList, new { @class = "form-control", @onSelect = "getCompanyInfo()" })
+                @Html.ValidationMessageFor(model => model.Company, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Type)
+
+                @Html.DropDownListFor(model => model.Type, ViewBag.TypeList as SelectList, new { @class = "form-control" })
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Quantity)
+
+                @Html.EditorFor(model => model.Quantity, new { htmlAttributes = new { @class = "form-control",@onchange="calculatePrice()" } })
+                @Html.ValidationMessageFor(model => model.Quantity, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PurchasePricePL)
+
+                @Html.EditorFor(model => model.PurchasePricePL, new { htmlAttributes = new { @class = "form-control",@onchange="calculatePrice()" } })
+                @Html.ValidationMessageFor(model => model.PurchasePricePL, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.CarriageCharges)
+
+                @Html.EditorFor(model => model.CarriageCharges, new { htmlAttributes = new { @class = "form-control",@onchange="calculatePrice()" } })
+                @Html.ValidationMessageFor(model => model.CarriageCharges, "", new { @class = "text-danger" })
+
+            </div>
+            <div class="form-group">
+                @Html.LabelFor(model => model.PriceAfterCarriage)
+
+                @Html.EditorFor(model => model.PriceAfterCarriage, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PriceAfterCarriage, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.DealingPerson)
+
+                @Html.EditorFor(model => model.DealingPerson, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.DealingPerson, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.CNIC)
+
+                @Html.EditorFor(model => model.CNIC, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.CNIC, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.PhoneNo)
+
+                @Html.EditorFor(model => model.PhoneNo, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.PhoneNo, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Address)
+
+                @Html.EditorFor(model => model.Address, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Address, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+
+                <input type="submit" value="Create" class="btn btn-primary" />
+
+            </div>
+
+        }
+    </div>
+</div>
+
+<script>
+    function getCompanyInfo() {
+        var company = $("#Company").val();
+
+        $.ajax
+            ({
+                url: '/Stocks/GetCompanyInfo',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({ company: company }),
+                success: function (result) {
+                    $("#Address").val(result.Address);
+                    $("#DealingPerson").val(result.Dealer);
+                    $("#CNIC").val(result.CNIC);
+                    $("#PhoneNo").val(result.ContactNo);
+                },
+                error: function () {
+                    alert("Whooaaa! Something went wrong..")
+                },
+            });
+    }
+
+    function calculatePrice() {
+            var q = $('#Quantity').val();
+            var pppl = $('#PurchasePricePL').val();
+            var cc = $('#CarriageCharges').val();
+        var pac = $('#PriceAfterCarriage');
+        if (q != undefined && q != null && pppl != undefined && pppl != null && cc != undefined && cc != null) {
+            var sum = 0;
+            sum = (q * pppl);
+            console.log(sum);
+
+            sum += (cc*1);
+            console.log(sum);
+            pac.val(sum / q);
+        }
+    }
+
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

@@ -1,0 +1,96 @@
+﻿@model IEnumerable<FillingStationApp.Models.Company>
+
+@{
+    ViewBag.Title = "Index";
+}
+<h2>Companies</h2>
+
+<a href="@Url.Action("Create")"><span><img style="max-width:50px;margin-bottom: 5px;" src="~/Content/plus.png" /></span></a>
+
+<input class="form-control" type="text" onkeyup="searchTxt()" id="searchtxtval" placeholder="Search by Company Name..." />
+
+<div style="overflow-x:auto;">
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CompanyName)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.ContactNo)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Dealer)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CNIC)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Address)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CompanyName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.ContactNo)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Dealer)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CNIC)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+    </table>
+</div>
+
+<script>
+    function searchTxt() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("searchtxtval");
+        filter = input.value.toUpperCase();
+        table = document.getElementById("myTable");
+        tr = table.getElementsByTagName("tr");
+
+        // Loop through all table rows, and hide those who don't match the search query
+        for (i = 0; i < tr.length; i++) {
+            td = tr[i].getElementsByTagName("td")[0];
+            if (td) {
+                txtValue = td.textContent || td.innerText;
+                if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                    tr[i].style.display = "";
+                } else {
+                    tr[i].style.display = "none";
+                }
+            }
+        }
+    }
+</script>
+

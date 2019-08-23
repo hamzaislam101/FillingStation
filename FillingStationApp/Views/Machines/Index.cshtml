@@ -1,0 +1,133 @@
+﻿@model IEnumerable<FillingStationApp.Models.Machine>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Machines</h2>
+
+<a href="@Url.Action("Create")"><span><img style="max-width:50px;margin-bottom: 5px;" src="~/Content/plus.png" /></span></a>
+
+
+@*<select class="form-control" id="selectmachine" style="margin-bottom: 30px;" onchange="searchMachines()">
+        <option value="one" selected="selected">Select Machine Type To Search</option>
+        <option value="Petrol">Petrol</option>
+        <option value="Diesel">Diesel</option>
+    </select>*@
+
+@Html.DropDownList("selectmachine", ViewBag.TypeList as SelectList, new { @class = "form-control", onchange = "searchMachines()", style = "margin-bottom:30px;" })
+
+
+<div style="overflow-x:auto;">
+    <table class="table" id="myTable">
+        <thead>
+            <tr>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.MachineNumber)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Type)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.Location)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CreatedBy)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.CreatedOn)
+                </th>
+                <th scope="col">
+                    @Html.DisplayNameFor(model => model.IsActive)
+                </th>
+                <th></th>
+            </tr>
+        </thead>
+        <tbody>
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.MachineNumber)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Type)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Location)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedBy)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.CreatedOn)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.IsActive)
+                    </td>
+                    <td>
+                        @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                        <a href="#" onclick="displayColumns()">Details</a> |
+                        @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                    </td>
+                </tr>
+            }
+        </tbody>
+
+    </table>
+</div>
+
+
+
+<script>
+    window.onload = function () {
+        var table = document.getElementById("myTable");
+        var tr = document.getElementsByTagName("tr");
+        for (var i = 1; i < tr.length; i++) {
+            var cells = tr[i].cells;
+            cells[3].style.display = "none";
+            cells[4].style.display = "none";
+            cells[5].style.display = "none";
+            console.log(cells + "removed");
+        }
+    };
+    function searchMachines() {
+        var input, filter, table, tr, td, i, txtValue;
+        input = document.getElementById("selectmachine");
+        filter = input.value.toUpperCase();
+        if (filter === "ONE") {
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+            for (i = 0; i < tr.length; i++) {
+                tr[i].style.display = "";
+            }
+        }
+        else {
+            table = document.getElementById("myTable");
+            tr = table.getElementsByTagName("tr");
+
+            // Loop through all table rows, and hide those who don't match the search query
+            for (i = 0; i < tr.length; i++) {
+                td = tr[i].getElementsByTagName("td")[1];
+                if (td) {
+                    txtValue = td.textContent || td.innerText;
+                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                        tr[i].style.display = "";
+                    } else {
+                        tr[i].style.display = "none";
+                    }
+                }
+            }
+        }
+
+    }
+    $('tr').bind('click', function () {
+        var tr = document.getElementsByTagName("tr");
+        tr[this.rowIndex].cells[3].style.display = "";
+        tr[this.rowIndex].cells[4].style.display = "";
+        tr[this.rowIndex].cells[5].style.display = "";
+    });
+    function displayColumns() {
+
+    }
+</script>

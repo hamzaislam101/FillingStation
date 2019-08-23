@@ -1,0 +1,46 @@
+﻿@model IEnumerable<FillingStationApp.Models.Rate>
+
+@{
+    ViewBag.Title = "Index";
+}
+
+<h2>Rates</h2>
+
+<a href="@Url.Action("Create")"><span><img style="max-width:50px;margin-bottom: 5px;" src="~/Content/plus.png" /></span></a>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.RateDate)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.FuelType)
+            </th>
+            <th scope="col">
+                @Html.DisplayNameFor(model => model.RateValue)
+            </th>
+            <th></th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RateDate)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.FuelType)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.RateValue)
+                </td>
+                <td>
+                    @Html.ActionLink("Edit", "Edit", new { id = item.Id }) |
+                    @Html.ActionLink("Delete", "Delete", new { id = item.Id })
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>

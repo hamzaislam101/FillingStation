@@ -1,0 +1,119 @@
+﻿@model FillingStationApp.Models.Rate
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<h2>Create</h2>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th scope="col">Fuel Type</th>
+            <th scope="col">Fuel Remaining</th>
+            <th scope="col">Fuel Purchase Rate</th>
+            <th scope="col">Profit</th>
+        </tr>
+    </thead>
+    <tbody id="tb">
+        @foreach (var i in ViewBag.StockDetail)
+        {
+            <tr>
+                <td>@i.FuelType</td>
+                <td>@i.RemainingFuelAmount</td>
+                <td>@i.PurchaseRate</td>
+                <td></td>
+            </tr>
+        }
+    </tbody>
+</table>
+<div class="row">
+    <label>Total Profit</label>
+    <input id="totalProfit" class="form-control" disabled="disabled" />
+</div>
+<div class="row justify-content-md-center">
+    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-9 col-xs-12">
+        @using (Html.BeginForm())
+        {
+            @Html.AntiForgeryToken()
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.RateDate, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.EditorFor(model => model.RateDate, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.RateDate, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.FuelType, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.DropDownListFor(model => model.FuelType, ViewBag.TypeList as SelectList, new { @class = "form-control",@onchange="getRates()" })
+                @Html.ValidationMessageFor(model => model.FuelType, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.RateValue, htmlAttributes: new { @class = "control-label col-md-2" })
+
+                @Html.EditorFor(model => model.RateValue, new { htmlAttributes = new { @class = "form-control",@onchange="getProfit()" } })
+                @Html.ValidationMessageFor(model => model.RateValue, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                <div class="col-md-offset-2 col-md-10">
+                    <input type="submit" value="Create" class="btn btn-primary" />
+                </div>
+            </div>
+        }
+    </div>
+</div>
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+<script>
+    function getProfit() {
+        var t = document.getElementsByTagName("tr");
+        var rate = $("#RateValue").val() * 1;
+        var total = 0;
+        for (var i = 1; i < t.length; i++) {
+            var f = t[i].cells[1].innerText * 1;
+            var r = t[i].cells[2].innerText * 1;
+            var d = rate - r;
+            total += (d * f);
+            t[i].cells[3].innerText = d * f;
+        }
+        $("#totalProfit").val(total);
+    }
+    function getRates() {
+        var type = $("#FuelType").val();
+        $.ajax
+            ({
+                url: '/Rates/GetRates',
+                type: 'POST',
+                datatype: 'application/json',
+                contentType: 'application/json',
+                data: JSON.stringify({ type: type }),
+                success: function (result) {
+                    $("#tb").html("");
+                    var data = $.parseJSON(result);
+                    $.each(data.stocks, function (i, stock) {
+                        $("#tb").append("<tr><td>" + stock.FuelType+"</td ><td>"+stock.RemainingFuelAmount+"</td><td>"+stock.PurchaseRate+"</td><td></td></tr>");
+                    })
+                    getProfit();
+                },
+                error: function () {
+                    alert("Whooaaa! Something went wrong..")
+                },
+            });
+    }
+</script>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

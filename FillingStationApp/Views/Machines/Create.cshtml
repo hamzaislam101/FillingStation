@@ -1,0 +1,76 @@
+﻿@model FillingStationApp.Models.Machine
+
+@{
+    ViewBag.Title = "Create";
+}
+
+<div class="row">
+    <div class="col text-center mt-3">
+        <h1>
+            Machine Management
+        </h1>
+    </div>
+</div>
+
+<label style="color:red;">@ViewBag.ErrorMessage</label>
+
+<div class="row justify-content-md-center">
+    <div class="col-xl-6 col-lg-7 col-md-8 col-sm-9 col-xs-12">
+        @using (Html.BeginForm("Create", "Machines", FormMethod.Post, new { @class = "rounded", style = "border:1px solid blue;padding:25px;" }))
+        {
+            @Html.AntiForgeryToken()
+
+
+            @Html.ValidationSummary(true, "", new { @class = "text-danger" })
+            <div class="form-group">
+                @Html.LabelFor(model => model.MachineNumber)
+
+                @Html.EditorFor(model => model.MachineNumber, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.MachineNumber, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Type)
+
+                @Html.DropDownListFor(model => model.Type,ViewBag.TypeList as SelectList,  new { @class = "form-control" } )
+                @Html.ValidationMessageFor(model => model.Type, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.Location)
+
+                @Html.EditorFor(model => model.Location, new { htmlAttributes = new { @class = "form-control" } })
+                @Html.ValidationMessageFor(model => model.Location, "", new { @class = "text-danger" })
+
+            </div>
+
+            <div class="form-group">
+                @Html.LabelFor(model => model.IsActive)
+
+                <div class="checkbox">
+                    @Html.EditorFor(model => model.IsActive)
+                    @Html.ValidationMessageFor(model => model.IsActive, "", new { @class = "text-danger" })
+                </div>
+
+            </div>
+
+            <div class="form-group">
+
+                <input type="submit" value="Create" class="btn btn-primary" />
+
+            </div>
+
+        }
+    </div>
+</div>
+
+
+<div>
+    @Html.ActionLink("Back to List", "Index")
+</div>
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}

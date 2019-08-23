@@ -1,0 +1,124 @@
+﻿/*body {
+    padding-top: 50px;
+    padding-bottom: 20px;
+}*/
+
+/* Set padding to keep content from hitting the edges */
+/*.body-content {
+    padding-left: 15px;
+    padding-right: 15px;
+}*/
+
+/* Override the default bootstrap behavior where horizontal description lists 
+   will truncate terms that are too long to fit in the left column 
+*/
+/*.dl-horizontal dt {
+    white-space: normal;
+}*/
+
+/* Set width on the form input elements since they're 100% wide by default */
+/*input,
+select,
+textarea {
+    max-width: 280px;
+}*/
+.bordercolorandstyle {
+    border: 1px solid blue;
+}
+@media only screen and (max-width: 575.98px) {
+    .veryverysmall {
+        border: 2px solid red;
+        display: block;
+        /*margin-top:22%;*/
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+    }
+}
+
+@media (min-width: 576px) and (max-width: 767.98px) {
+    .verysmall {
+        border: 2px solid red;
+        display: block;
+        /*margin-top:22%;*/
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+    }
+}
+
+@media only screen and (min-width: 768px) and (max-width: 991.98px) {
+    .justmedium {
+        border: 2px solid red;
+        display: block;
+        margin-top: 22%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+    }
+}
+
+@media only screen and (min-width: 992px) and (max-width: 1199.98px) {
+    .verylarge {
+        border: 2px solid red;
+        display: block;
+        margin-top: 22%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+    }
+}
+
+@media only screen and (min-width: 1200px) {
+    .veryextralarge {
+        border: 2px solid red;
+        display: block;
+        margin-top: 22%;
+        margin-left: auto;
+        margin-right: auto;
+        padding: 30px;
+    }
+}
+thead{
+    background-color:#408000;
+    color:#fff;
+}
+.color-nav{
+    background-color:#008000;
+}
+nav a{
+    color:#fff;
+}
+nav a:hover {
+    color:#fff;
+    opacity:0.5;
+}
+nav .button-class {
+    border:2px solid #00ff00;
+    color: #fff;
+}
+
+    nav .button-class:hover {
+        color: #fff;
+        border: 2px solid #00ff00;
+        opacity: 0.5;
+    }
+
+nav button {
+    border: 2px solid #00ff00;
+    color: #fff;
+}
+
+    /*nav button:hover {
+        color: #fff;
+        border: 2px solid #00ff00;
+        opacity: 0.5;
+    }*/
+
+.custom-toggler.navbar-toggler {
+    border-color: rgb(255,255,255);
+}
+
+.custom-toggler .navbar-toggler-icon {
+    background-image: url("data:image/svg+xml;charset=utf8,%3Csvg viewBox='0 0 32 32' xmlns='http://www.w3.org/2000/svg'%3E%3Cpath stroke='rgba(255,255,255, 0.7)' stroke-width='2' stroke-linecap='round' stroke-miterlimit='10' d='M4 8h24M4 16h24M4 24h24'/%3E%3C/svg%3E");
+}
